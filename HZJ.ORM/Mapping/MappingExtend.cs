@@ -18,7 +18,7 @@
 
 using System.Reflection;
 
-namespace HZJ.ORnodeMapping
+namespace HZJ.ORM.Mapping
 {
     /// <summary>
     /// 自定义映射的扩展方法
@@ -32,7 +32,7 @@ namespace HZJ.ORnodeMapping
         /// <typeparam name="T">泛型类</typeparam>
         /// <param name="type">类型</param>
         /// <returns></returns>
-        public static string GetMapingName<T>(this T type) where T : MemberInfo
+        public static string GetMappingName<T>(this T type) where T : MemberInfo
         {
             if (type.IsDefined(typeof(AbstractMappingAttribute)))
             {

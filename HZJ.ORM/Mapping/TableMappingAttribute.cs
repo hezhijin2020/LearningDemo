@@ -21,7 +21,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HZJ.ORnodeMapping
+namespace HZJ.ORM.Mapping
 {
     /// <summary>
     /// 表名特性映射

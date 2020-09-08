@@ -15,7 +15,7 @@
 //----------------------------------------------------------------
 #endregion
 
-using HZJ.ORnodeMapping;
+using HZJ.ORM.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;

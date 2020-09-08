@@ -18,7 +18,7 @@
 
 using System;
 
-namespace HZJ.ORnodeMapping
+namespace HZJ.ORM.Mapping
 {
     /// <summary>
     /// 列特性映射

@@ -17,7 +17,7 @@
 
 using System;
 
-namespace HZJ.ORnodeMapping
+namespace HZJ.ORM.Mapping
 {
     /// <summary>
     /// 数据库特性基类
