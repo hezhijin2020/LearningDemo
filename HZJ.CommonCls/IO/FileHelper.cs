@@ -67,6 +67,18 @@ namespace HZJ.CommonCls.IO
         }
 
         /// <summary>
+        /// 检件文件是否存在，不存在则创建
+        /// </summary>
+        /// <param name="Folder"></param>
+        public static void CheckFileExists(string FileName)
+        {
+            if (!FileExists(FileName))
+            {
+                System.IO.File.Create(FileName);
+            }
+        }
+
+        /// <summary>
         /// 检件文件夹是否存在，不存在则创建
         /// </summary>
         /// <param name="Folder"></param>

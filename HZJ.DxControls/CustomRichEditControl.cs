@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace RightingSys.WinForm.Utility.CustomControls
+namespace HZJ.DxControls
 {
     [ToolboxItem(true)]
     public partial class CustomRichEditControl : UserControl

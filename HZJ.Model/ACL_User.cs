@@ -1,7 +1,7 @@
 ﻿using HZJ.ORM.Mapping;
 using System;
 
-namespace HZJ.Model
+namespace HZJ.Models
 {
     [TableMapping("ACL_User")]
     public class ACL_User:BaseEntity

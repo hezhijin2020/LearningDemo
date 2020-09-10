@@ -11,7 +11,7 @@ using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace RightingSys.WinForm.Utility.CustomControls
+namespace HZJ.DxControls
 {
     [UserRepositoryItem("RegisterCustomGridLookUpEdit")]
     [DXCategory("Properties")]

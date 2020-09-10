@@ -86,9 +86,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\HZJ.Model\HZJ.Model.csproj">
+    <ProjectReference Include="..\HZJ.Model\HZJ.Models.csproj">
       <Project>{bf00b854-2366-43e1-bb4d-96695117a397}</Project>
-      <Name>HZJ.Model</Name>
+      <Name>HZJ.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\HZJ.ORM\HZJ.ORM.csproj">
       <Project>{1cc2d36b-2b9f-4558-84e1-359807a8ca6e}</Project>

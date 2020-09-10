@@ -1,4 +1,4 @@
-﻿namespace RightingSys.WinForm.Utility.CustomControls
+﻿namespace HZJ.DxControls
 {
     partial class CustomRichEditControl
     {

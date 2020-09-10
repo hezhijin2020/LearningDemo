@@ -20,7 +20,7 @@ using DevExpress.Utils;
 using DevExpress.Data.Filtering;
 using DevExpress.Data.Filtering.Helpers;
 
-namespace RightingSys.WinForm.Utility.CustomControls
+namespace HZJ.DxControls
 {
     public class CustomGridView : GridView
     {

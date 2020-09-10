@@ -7,8 +7,8 @@
     <ProjectGuid>{BF00B854-2366-43E1-BB4D-96695117A397}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HZJ.Model</RootNamespace>
-    <AssemblyName>HZJ.Model</AssemblyName>
+    <RootNamespace>HZJ.Models</RootNamespace>
+    <AssemblyName>HZJ.Models</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ACL_Role_Function.cs" />
     <Compile Include="ACL_User.cs" />
     <Compile Include="BaseEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

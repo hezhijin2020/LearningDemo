@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HZJ.Model
+namespace HZJ.Models
 {
     public class BaseEntity
     {

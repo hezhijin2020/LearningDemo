@@ -2760,7 +2760,7 @@ namespace HZJ.CommonCls
 
         #endregion
 
-        #region  提示消息片处理方法
+        #region  提示消息处理方法
      
 
         /// <summary>

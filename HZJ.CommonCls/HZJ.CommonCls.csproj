@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="itextsharp">
+      <HintPath>D:\Work\OneDrive\C#Demo\常用DLL\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>D:\Work\OneDrive\C#Demo\常用DLL\Log4net\4.5\release\log4net.dll</HintPath>
     </Reference>
@@ -38,6 +41,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -47,6 +51,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DB\SqlDbHelper.cs" />
+    <Compile Include="Pdf\CanvasRectangle.cs" />
+    <Compile Include="Pdf\HeaderAndFooterEvent.cs" />
+    <Compile Include="Pdf\PdfBase.cs" />
+    <Compile Include="Pdf\PdfImage.cs" />
+    <Compile Include="Pdf\PdfPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pdf\PdfPageMerge.cs" />
+    <Compile Include="Pdf\PdfTable.cs" />
+    <Compile Include="Pdf\PdfText.cs" />
+    <Compile Include="Pdf\PdfWatermark.cs" />
     <Compile Include="clsPublic.cs" />
     <Compile Include="Dencrypts\ByteArrayToObject.cs" />
     <Compile Include="Dencrypts\DecodeException.cs" />
