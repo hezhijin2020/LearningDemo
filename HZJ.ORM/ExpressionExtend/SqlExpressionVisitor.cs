@@ -43,7 +43,7 @@ namespace HZJ.ORM.ExpressionExtend
             }
             else
             {
-                string name = node.Member.GetMapingName();
+                string name = node.Member.GetMappingName();
                 this.ConditionStack.Push("@"+name);
             }
             return node;
