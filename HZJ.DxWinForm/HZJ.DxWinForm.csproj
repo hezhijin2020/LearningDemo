@@ -80,6 +80,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\ClsCommon\AppSetingHandler.cs" />
+    <Compile Include="Utility\ClsCommon\AppSetingHelper.cs" />
+    <Compile Include="Utility\ClsCommon\ConfigEntity.cs" />
     <Compile Include="Utility\ClsCommon\FeatureButton.cs" />
     <Compile Include="Utility\ClsCommon\Global.cs" />
     <Compile Include="Utility\ClsCommon\IMainForm.cs" />

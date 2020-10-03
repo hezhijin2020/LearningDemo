@@ -7,6 +7,7 @@ using HZJ.DxWinForm.MdiForm.pgSystem;
 using HZJ.DxWinForm.Utility.ClsCommon;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
@@ -18,6 +19,9 @@ namespace HZJ.DxWinForm
         public MainForm()
         {
             InitializeComponent();
+            string name= AppSetingHelper.GetDefaultTheme();
+            AppSetingHelper.SetDefaultTheme("text");
+
         }
 
         #region  声明变量

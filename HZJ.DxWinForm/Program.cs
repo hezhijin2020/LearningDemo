@@ -18,6 +18,7 @@ namespace HZJ.DxWinForm
         [STAThread]
         static void Main()
         {
+
             BindExceptionHandler();//异常处理
             BonusSkins.Register();//系统主题
             SkinManager.EnableFormSkins();

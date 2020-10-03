@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{937E2C58-833C-4FF7-96F2-CBD6BF40963E}</ProjectGuid>
+    <ProjectGuid>{DA9EF8B2-B6AF-41A4-85E9-89D67923EFD2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HZJ.DxControls</RootNamespace>
-    <AssemblyName>HZJ.DxControls</AssemblyName>
+    <RootNamespace>HZJ.DxWinComm</RootNamespace>
+    <AssemblyName>HZJ.DxWinComm</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -33,14 +33,18 @@
   <ItemGroup>
     <Reference Include="DevExpress.Data.Desktop.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Data.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.RichEdit.v20.1.Core, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Utils.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraBars.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Printing.v20.1.Core, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Sparkline.v20.1.Core, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraGrid.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraRichEdit.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="HZJ.CommonCls">
+      <HintPath>..\HZJ.CommonCls\bin\Debug\HZJ.CommonCls.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
@@ -51,44 +55,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomGridControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="CustomGridLookUpEdit.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="CustomGridLookUpPopupForm.cs">
+    <Compile Include="BaseWinFrom\BaseEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CustomPageControl.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="BaseWinFrom\BaseEditForm.Designer.cs">
+      <DependentUpon>BaseEditForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="CustomPageControl.designer.cs">
-      <DependentUpon>CustomPageControl.cs</DependentUpon>
+    <Compile Include="BaseWinFrom\BaseForm.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CustomRichEditControl.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="BaseWinFrom\BaseForm.Designer.cs">
+      <DependentUpon>BaseForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="CustomRichEditControl.designer.cs">
-      <DependentUpon>CustomRichEditControl.cs</DependentUpon>
-    </Compile>
+    <Compile Include="CommCls\DxPublic.cs" />
+    <Compile Include="CommCls\FeatureButton.cs" />
+    <Compile Include="CommCls\Global.cs" />
+    <Compile Include="CommCls\IMainForm.cs" />
+    <Compile Include="CommCls\Session.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RepositoryItemCustomGridLookUpEdit.cs">
-      <SubType>Component</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CustomGridControl.resx">
-      <DependentUpon>CustomGridControl.cs</DependentUpon>
+    <EmbeddedResource Include="BaseWinFrom\BaseEditForm.resx">
+      <DependentUpon>BaseEditForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CustomPageControl.resx">
-      <DependentUpon>CustomPageControl.cs</DependentUpon>
+    <EmbeddedResource Include="BaseWinFrom\BaseForm.resx">
+      <DependentUpon>BaseForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CustomRichEditControl.resx">
-      <DependentUpon>CustomRichEditControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
