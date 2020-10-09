@@ -81,6 +81,9 @@
     <EmbeddedResource Include="CustomGridControl.resx">
       <DependentUpon>CustomGridControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CustomGridLookUpEdit.resx">
+      <DependentUpon>CustomGridLookUpEdit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CustomPageControl.resx">
       <DependentUpon>CustomPageControl.cs</DependentUpon>
     </EmbeddedResource>

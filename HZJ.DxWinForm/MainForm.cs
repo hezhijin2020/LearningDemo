@@ -1,13 +1,12 @@
 ﻿using DevExpress.XtraBars;
-using DevExpress.XtraBars.Docking2010.Dragging;
 using DevExpress.XtraBars.Helpers;
 using DevExpress.XtraBars.Ribbon;
-using HZJ.CommonCls;
+using DevExpress.XtraEditors;
 using HZJ.DxWinForm.MdiForm.pgSystem;
-using HZJ.DxWinForm.Utility.ClsCommon;
+using HZJ.DxWinForm.Utility.BaseWinFrom;
+using HZJ.DxWinForm.Utility.CommCls;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
@@ -19,9 +18,6 @@ namespace HZJ.DxWinForm
         public MainForm()
         {
             InitializeComponent();
-            string name= AppSetingHelper.GetDefaultTheme();
-            AppSetingHelper.SetDefaultTheme("text");
-
         }
 
         #region  声明变量
@@ -38,6 +34,12 @@ namespace HZJ.DxWinForm
         #region 接口成员
 
         #region  显示子窗体方法
+
+        public void FormShow(XtraForm form)
+        {
+            form.ShowDialog();
+            form.StartPosition = FormStartPosition.CenterParent;
+        }
         public void MdiShow(BaseForm frm, object FuncId)
         {
             this.MdiShow(frm, FuncId, false);
@@ -67,7 +69,7 @@ namespace HZJ.DxWinForm
                         form.Dispose();
                     }
                 }
-                string objectString = clsPublic.GetObjectString(FuncId);
+                string objectString = DxPublic.GetObjString(FuncId);
                 if (!string.IsNullOrEmpty(objectString))
                 {
                     frm.FuncId = Guid.Parse(objectString);
@@ -81,7 +83,7 @@ namespace HZJ.DxWinForm
             }
             catch (System.Exception ex)
             {
-                clsPublic.ShowException(ex, this.Text);
+                DxPublic.ShowException(ex, this.Text);
             }
         }
 
@@ -110,7 +112,7 @@ namespace HZJ.DxWinForm
             }
             catch (System.Exception ex)
             {
-                clsPublic.ShowException(ex, this.Text);
+                DxPublic.ShowException(ex, this.Text);
             }
         }
         #endregion
@@ -563,7 +565,7 @@ namespace HZJ.DxWinForm
         /// <param name="guidFuncId">功能Id</param>
         public void ShowNoRight(string FuncId)
         {
-            clsPublic.ShowMessage("权限不足");
+            DxPublic.ShowMessage("权限不足");
         }
 
         /// <summary>
@@ -652,8 +654,8 @@ namespace HZJ.DxWinForm
         {
             this.Invoke((EventHandler)delegate
             {
-                LoginForm = new LoginForm();// new SubForm.pageSystem.LoginForm(_appRight);
-                if (this.LoginForm.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                LoginForm = new LoginForm();
+                if (this.LoginForm.ShowDialog() !=DialogResult.OK)
                 {
                     this.pageEditor.Visible = false;
                     this.pageSystem.Visible = true;
@@ -669,7 +671,6 @@ namespace HZJ.DxWinForm
                     this.LoginedIn = true;
                 }
                 this.Init();
-
             });
         }
 
@@ -689,10 +690,6 @@ namespace HZJ.DxWinForm
         /// </summary>
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            //if (this.LoginedIn)
-            //{
-            //    clsPublicLogs.AddNewLoginLog(false);
-            //}
             Application.ExitThread();
             Application.Exit();
         }
@@ -700,36 +697,44 @@ namespace HZJ.DxWinForm
         /// <summary>
         /// 主窗体加载事件
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void MainForm_Load(object sender, EventArgs e)
         {
             InitialUserSkin();//初始化主题
+
             CloseAllWin();//关闭所有子窗体
+
             Menu_Null();//初始化受权
-            if (this.LoginForm != null)
+          
+            if (!Global._SqlDb.IsConnectionTest())
             {
-                this.LoginForm = null;
+                DxPublic.ShowMessage("数据库连接失败，请重新配置", Text);
+                this.btnDBConnSetup_ItemClick(null, null);
             }
-            try
-            {
-                Thread ThLogin = new Thread(doLogin);
-                ThLogin.Start();
-            }
-            catch (System.Exception ex)
-            {
-                clsPublic.ShowException(ex, this.Text);
-            }
-            finally
+            else
             {
                 if (this.LoginForm != null)
                 {
-                    this.LoginForm.Dispose();
                     this.LoginForm = null;
                 }
+                try
+                {
+                    Thread ThLogin = new Thread(doLogin);
+                    ThLogin.Start();
+                }
+                catch (System.Exception ex)
+                {
+                    DxPublic.ShowException(ex, this.Text);
+                }
+                finally
+                {
+                    if (this.LoginForm != null)
+                    {
+                        this.LoginForm.Dispose();
+                        this.LoginForm = null;
+                    }
+                }
             }
-            this.MainRibbon.SelectedPage = this.pageSystem;
-            this.SetEditPageVisible(false);
+            
         }
 
         /// <summary>
@@ -787,7 +792,7 @@ namespace HZJ.DxWinForm
                     }
                     catch (System.Exception ex)
                     {
-                        clsPublic.ShowException(ex, this.Text);
+                        DxPublic.ShowException(ex, this.Text);
                     }
                 }
             }));
@@ -809,10 +814,10 @@ namespace HZJ.DxWinForm
                 {
                     ribbonPage.Visible = false;
                 }
-
                 this.pageSystem.Visible = true;
                 this.btnUserLogout.Visibility = BarItemVisibility.Always;
                 this.btnAppExit.Visibility = BarItemVisibility.Always;
+                this.btnDBConnSetup.Visibility = BarItemVisibility.Always;
                 this.btnModifyPwd.Visibility = BarItemVisibility.Never;
 
                 this.pageHelper.Visible = true;
@@ -820,7 +825,6 @@ namespace HZJ.DxWinForm
                 this.btnCalc.Visibility = BarItemVisibility.Always;
                 this.btnNotepad.Visibility = BarItemVisibility.Always;
                 this.btnstikynot.Visibility = BarItemVisibility.Always;
-                this.pageEditor.Visible = false;
 
                 if (this.LoginForm != null)
                 {
@@ -911,7 +915,7 @@ namespace HZJ.DxWinForm
 
         private void btnAppExit_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            if (!clsPublic.GetMessageBoxYesNoResult("是否退出登录？", this.Text))
+            if (!DxPublic.GetMessageBoxYesNoResult("是否退出登录？", this.Text))
             {
                 return;
             }
@@ -926,7 +930,7 @@ namespace HZJ.DxWinForm
                 this.MainForm_Load(null, null);
                 return;
             }
-            if (!clsPublic.GetMessageBoxYesNoResult("是否注销系统？", this.Text))
+            if (!DxPublic.GetMessageBoxYesNoResult("是否注销系统？", this.Text))
             {
                 return;
             }
@@ -957,23 +961,33 @@ namespace HZJ.DxWinForm
         #region 系统窗体主题
         private void InitialUserSkin()
         {
-            string defaultSkinName = "Springtime";
-            SkinHelper.InitSkinGallery(skinRibbon);
-            defaultSkinName = Global._AppRight.ReadDefaultSkinName() == "" ? defaultSkinName : Global._AppRight.ReadDefaultSkinName();
-            DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle(defaultSkinName);//skinName为皮肤名 
-            skinRibbon.Caption = "主题：" + defaultSkinName;
+            try
+            {
+                SkinHelper.InitSkinGallery(skinRibbon);
+                var SkinName = AppSetingHelper.GetDefaultTheme();
+                DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle(SkinName);//skinName为皮肤名 
+                skinRibbon.Caption = "主题：" + SkinName;
+            }
+            catch(Exception ex) {
+                DxPublic.ShowException(ex);
+                throw ex;
+            }
+           
         }
 
         private void skinRibbon_Gallery_ItemClick(object sender, GalleryItemClickEventArgs e)
         {
-            string name = string.Empty;
-            string caption = string.Empty;
             if (skinRibbon.Gallery == null) return;
-            caption = skinRibbon.Gallery.GetCheckedItems()[0].Caption;//主题的描述
-            Global._AppRight.WriteDefaultSkinName(caption);
-            skinRibbon.Caption = "主题：" + caption + name;
+            var  SkinName = skinRibbon.Gallery.GetCheckedItems()[0].Value.ToString();//主题的描述
+             AppSetingHelper.SetDefaultTheme(SkinName);
+            skinRibbon.Caption = "主题：" + SkinName;
         }
-       
+
         #endregion
+
+        private void btnDBConnSetup_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.FormShow(new DbSettingForm());
+        }
     }
 }

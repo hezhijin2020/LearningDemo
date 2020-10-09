@@ -1,10 +1,10 @@
-﻿using HZJ.CommonCls;
-using HZJ.DxWinForm.Utility.ClsCommon;
+﻿using DevExpress.XtraEditors;
+using HZJ.DxWinForm.Utility.CommCls;
 using System;
 
 namespace HZJ.DxWinForm.MdiForm.pgSystem
 {
-    public partial class FModifyUserPwd : BaseForm
+    public partial class FModifyUserPwd : XtraForm
     {
         RightingSysManager _appRight;
 
@@ -40,14 +40,14 @@ namespace HZJ.DxWinForm.MdiForm.pgSystem
             string newpwd = txtNewPwd1.Text.Trim();
             if (oldpwd == "")
             {
-                clsPublic.ShowMessage("原密码不能为空", Text);
+                DxPublic.ShowMessage("原密码不能为空", Text);
                 txtOldPwd.Focus();
             }
             else
             {
                 if (oldpwd == newpwd)
                 {
-                    clsPublic.ShowMessage("两次输入的密码不一致，请重新输入！", Text);
+                    DxPublic.ShowMessage("两次输入的密码不一致，请重新输入！", Text);
                     txtNewPwd1.Focus();
                 }
                 else
@@ -55,13 +55,13 @@ namespace HZJ.DxWinForm.MdiForm.pgSystem
 
                     if (_appRight.ModifyUserPwd(userid, oldpwd, newpwd))
                     {
-                        clsPublic.ShowMessage("密码修改成功！", Text);
+                        DxPublic.ShowMessage("密码修改成功！", Text);
                       //  clsPublic.appLogs.LogOpInfo("修改密码",DateTime.Now);
                         this.Close();
                     }
                     else
                     {
-                        clsPublic.ShowMessage("原密码错识修改失败！", Text);
+                        DxPublic.ShowMessage("原密码错识修改失败！", Text);
                         txtOldPwd.Focus();
                     }
                 }

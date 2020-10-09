@@ -81,6 +81,7 @@
             this.btnWorkPlan = new DevExpress.XtraBars.BarButtonItem();
             this.btnStickyBook = new DevExpress.XtraBars.BarButtonItem();
             this.btnStaffTasks = new DevExpress.XtraBars.BarButtonItem();
+            this.btnDBConnSetup = new DevExpress.XtraBars.BarButtonItem();
             this.pageEditor = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.groupOpDate = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.groupCommit = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -118,6 +119,7 @@
             this.MainRibbon.ExpandCollapseItem.Id = 0;
             this.MainRibbon.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.MainRibbon.ExpandCollapseItem,
+            this.MainRibbon.SearchEditItem,
             this.barAddNew,
             this.barQuery,
             this.barModify,
@@ -167,9 +169,10 @@
             this.btnBranch,
             this.btnWorkPlan,
             this.btnStickyBook,
-            this.btnStaffTasks});
+            this.btnStaffTasks,
+            this.btnDBConnSetup});
             this.MainRibbon.Location = new System.Drawing.Point(0, 0);
-            this.MainRibbon.MaxItemId = 41;
+            this.MainRibbon.MaxItemId = 42;
             this.MainRibbon.Name = "MainRibbon";
             this.MainRibbon.PageHeaderItemLinks.Add(this.skinRibbon);
             this.MainRibbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
@@ -182,7 +185,7 @@
             this.MainRibbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
             this.MainRibbon.ShowItemCaptionsInPageHeader = true;
             this.MainRibbon.ShowToolbarCustomizeItem = false;
-            this.MainRibbon.Size = new System.Drawing.Size(720, 147);
+            this.MainRibbon.Size = new System.Drawing.Size(720, 160);
             this.MainRibbon.StatusBar = this.ribbonStatusBar1;
             this.MainRibbon.Toolbar.ShowCustomizeItem = false;
             // 
@@ -385,7 +388,6 @@
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
             | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
-            //this.btnAbout.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnAbout_ItemClick);
             // 
             // btnCalc
             // 
@@ -416,7 +418,6 @@
             this.btnstikynot.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
             | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
             this.btnstikynot.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
-           // this.btnstikynot.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnstikynot_ItemClick);
             // 
             // btnUserSetup
             // 
@@ -427,7 +428,6 @@
             this.btnUserSetup.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
             | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
             this.btnUserSetup.Tag = "872e75bd-5515-4995-b6d7-775b9f82d5d2";
-            //this.btnUserSetup.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnUserSetup_ItemClick);
             // 
             // btnOuSetup
             // 
@@ -438,7 +438,6 @@
             this.btnOuSetup.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
             | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
             this.btnOuSetup.Tag = "ed3206f7-ee46-4154-878c-61cad0e97143";
-            //this.btnOuSetup.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnOuSetup_ItemClick);
             // 
             // btnRoleSetup
             // 
@@ -449,7 +448,6 @@
             this.btnRoleSetup.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
             | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
             this.btnRoleSetup.Tag = "11540071-071e-4c21-abcc-ecead0dd9010";
-            //this.btnRoleSetup.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnRoleSetup_ItemClick);
             // 
             // btnFuncSetup
             // 
@@ -460,7 +458,6 @@
             this.btnFuncSetup.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
             | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
             this.btnFuncSetup.Tag = "1aaa72e6-7877-4374-b67c-31d2059f2857";
-            //this.btnFuncSetup.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnFuncSetup_ItemClick);
             // 
             // btnSystemSetup
             // 
@@ -471,7 +468,6 @@
             this.btnSystemSetup.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
             | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
             this.btnSystemSetup.Tag = "ff216657-557b-4d44-a692-20140e6ec3fb";
-            //this.btnSystemSetup.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnSystemSetup_ItemClick);
             // 
             // btnMenuManager
             // 
@@ -482,7 +478,6 @@
             this.btnMenuManager.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
             | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
             this.btnMenuManager.Tag = "9f65e417-ff7b-4b8c-afad-ed3fc0a9873f";
-            //this.btnMenuManager.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnMenuSetup_ItemClick);
             // 
             // StatusLoginName
             // 
@@ -538,7 +533,6 @@
             this.btnFiledRightingSetup.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
             | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
             this.btnFiledRightingSetup.Tag = "518e7339-60f3-40b3-8018-ad0baa88f343";
-            //this.btnFiledRightingSetup.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnFiledRightingSetup_ItemClick);
             // 
             // btnBlackIP
             // 
@@ -549,7 +543,6 @@
             this.btnBlackIP.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
             | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
             this.btnBlackIP.Tag = "150634ca-0228-4479-a61e-9a9305cf94d3";
-            //this.btnBlackIP.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnBlackIPorUser_ItemClick);
             // 
             // btnLoginLog
             // 
@@ -560,7 +553,6 @@
             this.btnLoginLog.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
             | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
             this.btnLoginLog.Tag = "c9e40371-1192-4414-9b03-b7c42ec172cd";
-            //this.btnLoginLog.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnLoginLog_ItemClick);
             // 
             // btnOpLog
             // 
@@ -571,7 +563,6 @@
             this.btnOpLog.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
             | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
             this.btnOpLog.Tag = "7f9978f8-a766-4ebb-b780-d5384f843d42";
-            //this.btnOpLog.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnOpLog_ItemClick);
             // 
             // btnJobFiles
             // 
@@ -582,7 +573,6 @@
             this.btnJobFiles.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
             | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
             this.btnJobFiles.Tag = "468a3b8c-e387-4a8b-8e49-09eb1154ceeb";
-            //this.btnJobFiles.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnJobFiles_ItemClick);
             // 
             // btnJobRecord
             // 
@@ -592,7 +582,6 @@
             this.btnJobRecord.Name = "btnJobRecord";
             this.btnJobRecord.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.btnJobRecord.Tag = "e03e5ad2-12a2-4b33-9e07-114e9b268395";
-            //this.btnJobRecord.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnJobRecord_ItemClick);
             // 
             // 设备信息
             // 
@@ -609,7 +598,6 @@
             this.btnJobCategory.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
             | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
             this.btnJobCategory.Tag = "150fb95e-1273-437f-a2ef-52963ecfb2a6";
-            //this.btnJobCategory.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnJobCategory_ItemClick);
             // 
             // btnJobFileCategory
             // 
@@ -620,7 +608,6 @@
             this.btnJobFileCategory.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
             | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
             this.btnJobFileCategory.Tag = "150fb95e-1273-437f-a2ef-52963ecfb2a6";
-           // this.btnJobFileCategory.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnJobFileCategory_ItemClick);
             // 
             // btnJobRecordQuery
             // 
@@ -631,7 +618,6 @@
             this.btnJobRecordQuery.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
             | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
             this.btnJobRecordQuery.Tag = "07cd254d-0536-4474-b724-f5bb4fe5504a";
-            //this.btnJobRecordQuery.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnJobRecordQuery_ItemClick);
             // 
             // btnJobAnalyze
             // 
@@ -642,7 +628,6 @@
             this.btnJobAnalyze.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
             | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
             this.btnJobAnalyze.Tag = "d427fa46-66e3-420a-afbf-012eea47fb0e";
-          //  this.btnJobAnalyze.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnJobAnalyze_ItemClick);
             // 
             // btnBranch
             // 
@@ -653,7 +638,6 @@
             this.btnBranch.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
             | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
             this.btnBranch.Tag = "f57db3bb-ecb9-4646-a7e0-1aeb00e832b3";
-           // this.btnBranch.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnBranch_ItemClick);
             // 
             // btnWorkPlan
             // 
@@ -664,7 +648,6 @@
             this.btnWorkPlan.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
             | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
             this.btnWorkPlan.Tag = "e21ed94b-c572-472a-9715-66b26a2fea71";
-            //this.btnWorkPlan.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnWorkPlan_ItemClick);
             // 
             // btnStickyBook
             // 
@@ -674,7 +657,6 @@
             this.btnStickyBook.Name = "btnStickyBook";
             this.btnStickyBook.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
             | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
-           // this.btnStickyBook.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnStickyBook_ItemClick);
             // 
             // btnStaffTasks
             // 
@@ -684,7 +666,18 @@
             this.btnStaffTasks.Name = "btnStaffTasks";
             this.btnStaffTasks.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
             | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
-            //this.btnStaffTasks.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnStaffTasks_ItemClick);
+            // 
+            // btnDBConnSetup
+            // 
+            this.btnDBConnSetup.Caption = "数据库连接";
+            this.btnDBConnSetup.Id = 41;
+            this.btnDBConnSetup.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnDBConnSetup.ImageOptions.Image")));
+            this.btnDBConnSetup.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnDBConnSetup.ImageOptions.LargeImage")));
+            this.btnDBConnSetup.Name = "btnDBConnSetup";
+            this.btnDBConnSetup.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
+            | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
+            this.btnDBConnSetup.Tag = "ec57c2da-49c9-4f42-a3bc-5321335dfd65";
+            this.btnDBConnSetup.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnDBConnSetup_ItemClick);
             // 
             // pageEditor
             // 
@@ -754,6 +747,7 @@
             // 
             // groupSystem
             // 
+            this.groupSystem.ItemLinks.Add(this.btnDBConnSetup);
             this.groupSystem.ItemLinks.Add(this.btnUserLogout);
             this.groupSystem.ItemLinks.Add(this.btnModifyPwd);
             this.groupSystem.ItemLinks.Add(this.btnAppExit);
@@ -871,10 +865,10 @@
             this.ribbonStatusBar1.ItemLinks.Add(this.statusLogintime);
             this.ribbonStatusBar1.ItemLinks.Add(this.statusIP, true);
             this.ribbonStatusBar1.ItemLinks.Add(this.statusMac, true);
-            this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 238);
+            this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 245);
             this.ribbonStatusBar1.Name = "ribbonStatusBar1";
             this.ribbonStatusBar1.Ribbon = this.MainRibbon;
-            this.ribbonStatusBar1.Size = new System.Drawing.Size(720, 31);
+            this.ribbonStatusBar1.Size = new System.Drawing.Size(720, 24);
             // 
             // ntyAlert
             // 
@@ -902,7 +896,7 @@
             this.ClientSize = new System.Drawing.Size(720, 269);
             this.Controls.Add(this.ribbonStatusBar1);
             this.Controls.Add(this.MainRibbon);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.IconOptions.Icon = ((System.Drawing.Icon)(resources.GetObject("MainForm.IconOptions.Icon")));
             this.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.IsMdiContainer = true;
             this.Name = "MainForm";
@@ -1000,5 +994,6 @@
         private DevExpress.XtraBars.BarButtonItem btnWorkPlan;
         private DevExpress.XtraBars.BarButtonItem btnStickyBook;
         private DevExpress.XtraBars.BarButtonItem btnStaffTasks;
+        private DevExpress.XtraBars.BarButtonItem btnDBConnSetup;
     }
 }

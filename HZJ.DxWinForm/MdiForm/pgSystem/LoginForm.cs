@@ -1,5 +1,5 @@
-﻿using HZJ.CommonCls;
-using HZJ.DxWinForm.Utility.ClsCommon;
+﻿using HZJ.DxWinForm.Utility.CommCls;
+using HZJ.DxWinForm.Utility.vwModels;
 using System;
 using System.Data;
 using System.Windows.Forms;
@@ -8,10 +8,6 @@ namespace HZJ.DxWinForm.MdiForm.pgSystem
 {
     public partial class LoginForm : DevExpress.XtraEditors.XtraForm
     {
-        /// <summary>
-        /// 带参数的构造函数
-        /// </summary>
-        /// <param name="appRight">权限业务类</param>
         public LoginForm()
         {
             InitializeComponent();
@@ -49,11 +45,16 @@ namespace HZJ.DxWinForm.MdiForm.pgSystem
         {
             if (doLogin())
             {
-                Global._AppRight.SaveLoginConfig();
+                AppSetingHelper.SetLoginInfo(
+                    new Utility.vwModels.LoginInfo
+                    {
+                        LoginName = Global._Session._LoginName,
+                        LoginPwd = Global._Session._LoginPwd,
+                        IsRberPwd = Global._Session._IsRberPwd
+                    });
                 base.DialogResult = DialogResult.OK;
             }
         }
-
 
         /// <summary>
         /// 登录方法
@@ -61,34 +62,35 @@ namespace HZJ.DxWinForm.MdiForm.pgSystem
         /// <returns></returns>
         private bool doLogin()
         {
-            string text = this.txtLoginName.Text.Trim();
-            string text2 = this.txtLoginPwd.Text.Trim();
+            string LoginName = this.txtLoginName.Text.Trim();
+            string LoginPwd = this.txtLoginPwd.Text.Trim();
             try
             {
-                DataTable dataTable = Global._AppRight.GetUserInfo(text, text2);
+                DataTable dataTable = Global._AppRight.GetUserInfo(LoginName, LoginPwd);
                 if (dataTable == null || dataTable.Rows.Count < 1)
                 {
-                    clsPublic.ShowMessage("用户和密码错误", this.Text);
+                    DxPublic.ShowMessage("用户或密码错误！", this.Text);
                     return false;
                 }
-                Global._Session._IsRemPwd = CheckRemPwd.Checked;
-                Global._Session._LoginPwd = text2;
+
+                Global._Session._IsRberPwd = CheckRemPwd.Checked;
+                Global._Session._LoginPwd = LoginPwd;
+                Global._Session._LoginName = LoginName;
 
                 DataRow dataRow = dataTable.Rows[0];
-                Global._Session._UserId = clsPublic.GetObjGUID(dataRow["Id"]);
-                Global._Session._LoginName = clsPublic.GetObjectString(dataRow["LoginName"]);
-                Global._Session._FullName = clsPublic.GetObjectString(dataRow["FullName"]);
-                Global._Session._DepartmentId = clsPublic.GetObjGUID(dataRow["DepartmentId"]);
-                Global._Session._DepartmentName = clsPublic.GetObjectString(dataRow["DepartmentName"]);
+                Global._Session._UserId = DxPublic.GetObjGUID(dataRow["Id"]);
+                Global._Session._FullName = DxPublic.GetObjString(dataRow["FullName"]);
+                Global._Session._DepartmentId = DxPublic.GetObjGUID(dataRow["DepartmentId"]);
+                Global._Session._DepartmentName = DxPublic.GetObjString(dataRow["DepartmentName"]);
+
                 return true;
             }
             catch (Exception ex)
             {
-                clsPublic.ShowMessage("系统出错,错误信息："+ex.Message, this.Text);
+                DxPublic.ShowMessage($"用户登录出错：{ex.Message}", this.Text);
                 return false;
             }
         }
-        
 
         /// <summary>
         /// 窗体加载事件
@@ -97,12 +99,12 @@ namespace HZJ.DxWinForm.MdiForm.pgSystem
         /// <param name="e"></param>
         private void FLogin_Load(object sender, EventArgs e)
         {
-            Global._AppRight.ReadLoginConfig();//读取用户信息
+            LoginInfo info=  AppSetingHelper.GetLoginInfo();//读取用户信息
 
             //设置读取的用户信息
-            txtLoginName.Text =Global._Session._LoginName;
-            CheckRemPwd.Checked = Global._Session._IsRemPwd;
-            txtLoginPwd.Text = Global._Session._IsRemPwd? Global._Session._LoginPwd:"";
+            txtLoginName.Text = info.LoginName;
+            CheckRemPwd.Checked = info.IsRberPwd;
+            txtLoginPwd.Text = info.LoginPwd;
         }
     }
 }

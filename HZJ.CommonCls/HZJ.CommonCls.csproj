@@ -65,17 +65,17 @@
     <Compile Include="Pdf\PdfText.cs" />
     <Compile Include="Pdf\PdfWatermark.cs" />
     <Compile Include="clsPublic.cs" />
-    <Compile Include="Dencrypts\ByteArrayToObject.cs" />
-    <Compile Include="Dencrypts\DecodeException.cs" />
-    <Compile Include="Dencrypts\Dencrypt.cs" />
-    <Compile Include="Dencrypts\DencryptMethod.cs" />
-    <Compile Include="Dencrypts\JsDencrypt.cs" />
-    <Compile Include="Dencrypts\XmlUnSerial.cs" />
-    <Compile Include="Encrypts\Encrypt.cs" />
-    <Compile Include="Encrypts\EncryptMethod.cs" />
-    <Compile Include="Encrypts\JsEncrypt.cs" />
-    <Compile Include="Encrypts\ObjectToByteArray.cs" />
-    <Compile Include="Encrypts\XmlSerial.cs" />
+    <Compile Include="Cryptography\ByteArrayToObject.cs" />
+    <Compile Include="Cryptography\DecodeException.cs" />
+    <Compile Include="Cryptography\Dencrypt.cs" />
+    <Compile Include="Cryptography\DencryptMethod.cs" />
+    <Compile Include="Cryptography\JsDencrypt.cs" />
+    <Compile Include="Cryptography\XmlUnSerial.cs" />
+    <Compile Include="Cryptography\Encrypt.cs" />
+    <Compile Include="Cryptography\EncryptMethod.cs" />
+    <Compile Include="Cryptography\JsEncrypt.cs" />
+    <Compile Include="Cryptography\ObjectToByteArray.cs" />
+    <Compile Include="Cryptography\XmlSerial.cs" />
     <Compile Include="Email\EmailHelper.cs" />
     <Compile Include="Image\ImageHelper.cs" />
     <Compile Include="IO\FileHelper.cs" />
@@ -87,7 +87,9 @@
     <Compile Include="RegEx\RegExHelper.cs" />
     <Compile Include="SingleInstanceApplication.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Dencrypts\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="logs\log4net.config" />
   </ItemGroup>

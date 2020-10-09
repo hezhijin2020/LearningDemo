@@ -7,7 +7,7 @@
     <ProjectGuid>{7D7AEDB7-7D8B-4621-A034-76B3EC501975}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>HZJ.DxWinForm</RootNamespace>
-    <AssemblyName>HZJ.DxWinForm</AssemblyName>
+    <AssemblyName>RightingSys</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,6 +43,8 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -54,17 +56,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BaseForm.Designer.cs">
-      <DependentUpon>BaseForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MdiForm\pgSystem\BaseEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MdiForm\pgSystem\BaseEditForm.Designer.cs">
+      <DependentUpon>BaseEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MdiForm\pgSystem\DbSettingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MdiForm\pgSystem\DbSettingForm.Designer.cs">
+      <DependentUpon>DbSettingForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MdiForm\pgSystem\FModifyUserPwd.cs">
       <SubType>Form</SubType>
@@ -80,19 +88,42 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utility\ClsCommon\AppSetingHandler.cs" />
-    <Compile Include="Utility\ClsCommon\AppSetingHelper.cs" />
-    <Compile Include="Utility\ClsCommon\ConfigEntity.cs" />
-    <Compile Include="Utility\ClsCommon\FeatureButton.cs" />
-    <Compile Include="Utility\ClsCommon\Global.cs" />
-    <Compile Include="Utility\ClsCommon\IMainForm.cs" />
-    <Compile Include="Utility\ClsCommon\RightingSysManager.cs" />
-    <Compile Include="Utility\ClsCommon\Session.cs" />
-    <EmbeddedResource Include="BaseForm.resx">
+    <Compile Include="Utility\BaseWinFrom\BaseEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Utility\BaseWinFrom\BaseEditForm.Designer.cs">
+      <DependentUpon>BaseEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utility\BaseWinFrom\BaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Utility\BaseWinFrom\BaseForm.Designer.cs">
       <DependentUpon>BaseForm.cs</DependentUpon>
-    </EmbeddedResource>
+    </Compile>
+    <Compile Include="Utility\CommCls\AppSetingHandler.cs" />
+    <Compile Include="Utility\CommCls\AppSetingHelper.cs" />
+    <Compile Include="Utility\CommCls\AppStartupHelper.cs" />
+    <Compile Include="Utility\CommCls\AutoUpXmlHelper.cs" />
+    <Compile Include="Utility\CommCls\ConfigEntity.cs" />
+    <Compile Include="Utility\CommCls\RightingSysManager.cs" />
+    <Compile Include="Utility\CommCls\ConnStrType.cs" />
+    <Compile Include="Utility\CommCls\DxPublic.cs" />
+    <Compile Include="Utility\CommCls\FeatureButton.cs" />
+    <Compile Include="Utility\CommCls\Global.cs" />
+    <Compile Include="Utility\CommCls\IMainForm.cs" />
+    <Compile Include="Utility\CommCls\Session.cs" />
+    <Compile Include="Utility\CommCls\SingleInstanceApplication.cs" />
+    <Compile Include="Utility\CommCls\SqlDbHelper.cs" />
+    <Compile Include="Utility\vwModels\DbSettingInfo.cs" />
+    <Compile Include="Utility\vwModels\LoginInfo.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MdiForm\pgSystem\BaseEditForm.resx">
+      <DependentUpon>BaseEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MdiForm\pgSystem\DbSettingForm.resx">
+      <DependentUpon>DbSettingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MdiForm\pgSystem\FModifyUserPwd.resx">
       <DependentUpon>FModifyUserPwd.cs</DependentUpon>
@@ -110,6 +141,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Utility\BaseWinFrom\BaseEditForm.resx">
+      <DependentUpon>BaseEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Utility\BaseWinFrom\BaseForm.resx">
+      <DependentUpon>BaseForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -127,10 +164,6 @@
     <Folder Include="Utility\Image\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HZJ.CommonCls\HZJ.CommonCls.csproj">
-      <Project>{E61058CC-DA79-4F66-8C01-FFF6CCA2C199}</Project>
-      <Name>HZJ.CommonCls</Name>
-    </ProjectReference>
     <ProjectReference Include="..\HZJ.Model\HZJ.Models.csproj">
       <Project>{bf00b854-2366-43e1-bb4d-96695117a397}</Project>
       <Name>HZJ.Models</Name>

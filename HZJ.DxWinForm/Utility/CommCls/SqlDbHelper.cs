@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace HZJ.CommonCls.DB
+namespace HZJ.DxWinForm.Utility.CommCls
 {
     /// <summary>
     /// sql数据库帮助类

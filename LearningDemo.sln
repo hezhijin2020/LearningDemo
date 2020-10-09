@@ -21,10 +21,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HZJ.DxControls", "HZJ.DxCon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HZJ.DataAccessBLayer", "HZJ.DataAccessBLayer\HZJ.DataAccessBLayer.csproj", "{69683734-6C43-43BE-BC4E-FBE8725185C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HZJ.DxWinComm", "HZJ.DxCommons\HZJ.DxWinComm.csproj", "{DA9EF8B2-B6AF-41A4-85E9-89D67923EFD2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HZJ.MdiWinForm.AssetManagementSys", "HZJ.MdiWinForm.AssetManagementSys\HZJ.MdiWinForm.AssetManagementSys.csproj", "{B86C2879-113C-4E6F-85C6-08972AB0D1FE}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,14 +63,6 @@ Global
 		{69683734-6C43-43BE-BC4E-FBE8725185C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69683734-6C43-43BE-BC4E-FBE8725185C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69683734-6C43-43BE-BC4E-FBE8725185C7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DA9EF8B2-B6AF-41A4-85E9-89D67923EFD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DA9EF8B2-B6AF-41A4-85E9-89D67923EFD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DA9EF8B2-B6AF-41A4-85E9-89D67923EFD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DA9EF8B2-B6AF-41A4-85E9-89D67923EFD2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B86C2879-113C-4E6F-85C6-08972AB0D1FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B86C2879-113C-4E6F-85C6-08972AB0D1FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B86C2879-113C-4E6F-85C6-08972AB0D1FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B86C2879-113C-4E6F-85C6-08972AB0D1FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,4 @@
-﻿namespace HZJ.DxWinComm.BaseWinFrom
+﻿namespace HZJ.DxWinForm.Utility.BaseWinFrom
 {
     partial class BaseEditForm
     {

@@ -17,14 +17,18 @@
 
 using DevExpress.XtraEditors;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Management;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace HZJ.DxWinComm.CommCls
+namespace HZJ.DxWinForm.Utility.CommCls
 {
     /// <summary>
     /// 公用帮助类
@@ -242,6 +246,16 @@ namespace HZJ.DxWinComm.CommCls
         #endregion
 
         #region 格式转换
+
+       /// <summary>
+       /// 检查类型是否为空
+       /// </summary>
+       /// <param name="theType">类型</param>
+       /// <returns></returns>
+        public static bool IsNullableType(System.Type theType)
+        {
+            return theType.IsGenericType && theType.GetGenericTypeDefinition().Equals(typeof(System.Nullable<>));
+        }
 
         /// <summary>
         /// 检查对象是否为空
@@ -897,6 +911,295 @@ namespace HZJ.DxWinComm.CommCls
 
 
 
+        #endregion
+
+        #region 字符串简单加密
+
+        private static readonly string Base64Code = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=";
+
+        public static string EncryptString(string str)
+        {
+            byte b = 0;
+            ArrayList arrayList = new ArrayList(Encoding.UTF8.GetBytes(str));
+            int count = arrayList.Count;
+            int num = count / 3;
+            int num2 = 0;
+            if ((num2 = count % 3) > 0)
+            {
+                for (int i = 0; i < 3 - num2; i++)
+                {
+                    arrayList.Add(b);
+                }
+                num++;
+            }
+            StringBuilder stringBuilder = new StringBuilder(num * 4);
+            for (int j = 0; j < num; j++)
+            {
+                byte[] array = new byte[3]
+                {
+                (byte)arrayList[j * 3],
+                (byte)arrayList[j * 3 + 1],
+                (byte)arrayList[j * 3 + 2]
+                };
+                int[] array2 = new int[4]
+                {
+                array[0] >> 2,
+                ((array[0] & 3) << 4) ^ (array[1] >> 4),
+                0,
+                0
+                };
+                if (!array[1].Equals(b))
+                {
+                    array2[2] = (((array[1] & 0xF) << 2) ^ (array[2] >> 6));
+                }
+                else
+                {
+                    array2[2] = 64;
+                }
+                if (!array[2].Equals(b))
+                {
+                    array2[3] = (array[2] & 0x3F);
+                }
+                else
+                {
+                    array2[3] = 64;
+                }
+                stringBuilder.Append(Base64Code[array2[0]]);
+                stringBuilder.Append(Base64Code[array2[1]]);
+                stringBuilder.Append(Base64Code[array2[2]]);
+                stringBuilder.Append(Base64Code[array2[3]]);
+            }
+            return stringBuilder.ToString();
+        }
+        public static string DecryptString(string str)
+        {
+            if (str.Length % 4 != 0)
+            {
+                throw new ArgumentException("encode error!", "str");
+            }
+            if (!Regex.IsMatch(str, "^[A-Z0-9/+=]*$", RegexOptions.IgnoreCase))
+            {
+                throw new ArgumentException("encode error!", "str");
+            }
+            int num = str.Length / 4;
+            ArrayList arrayList = new ArrayList(num * 3);
+            char[] array = str.ToCharArray();
+            for (int i = 0; i < num; i++)
+            {
+                byte[] array2 = new byte[4]
+                {
+                (byte)Base64Code.IndexOf(array[i * 4]),
+                (byte)Base64Code.IndexOf(array[i * 4 + 1]),
+                (byte)Base64Code.IndexOf(array[i * 4 + 2]),
+                (byte)Base64Code.IndexOf(array[i * 4 + 3])
+                };
+                byte[] array3 = new byte[3]
+                {
+                (byte)((array2[0] << 2) ^ ((array2[1] & 0x30) >> 4)),
+                0,
+                0
+                };
+                if (array2[2] != 64)
+                {
+                    array3[1] = (byte)((array2[1] << 4) ^ ((array2[2] & 0x3C) >> 2));
+                }
+                else
+                {
+                    array3[2] = 0;
+                }
+                if (array2[3] != 64)
+                {
+                    array3[2] = (byte)((array2[2] << 6) ^ array2[3]);
+                }
+                else
+                {
+                    array3[2] = 0;
+                }
+                arrayList.Add(array3[0]);
+                if (array3[1] != 0)
+                {
+                    arrayList.Add(array3[1]);
+                }
+                if (array3[2] != 0)
+                {
+                    arrayList.Add(array3[2]);
+                }
+            }
+            byte[] bytes = (byte[])arrayList.ToArray(Type.GetType("System.Byte"));
+            return Encoding.UTF8.GetString(bytes);
+        }
+        #endregion 
+
+        #region 实体列表与DataTable互换
+
+        /// <summary>
+        /// DataTable转换成实体列表
+        /// </summary>
+        /// <typeparam name="T">实体 T </typeparam>
+        /// <param name="table">datatable</param>
+        /// <returns></returns>
+        public static IList<T> DataTableToList<T>(DataTable table) where T : class
+        {
+            // if (!IsHaveRows(table))
+            if (table == null || table.Rows.Count == 0)
+                return new List<T>();
+
+            IList<T> list = new List<T>();
+            T model = default(T);
+            foreach (DataRow dr in table.Rows)
+            {
+                model = Activator.CreateInstance<T>();
+
+                foreach (DataColumn dc in dr.Table.Columns)
+                {
+                    object drValue = dr[dc.ColumnName];
+                    PropertyInfo pi = model.GetType().GetProperty(dc.ColumnName);
+
+                    if (pi != null && pi.CanWrite && (drValue != null && !Convert.IsDBNull(drValue)))
+                    {
+                        pi.SetValue(model, drValue, null);
+                    }
+                }
+
+                list.Add(model);
+            }
+            return list;
+        }
+
+        /// <summary>
+        /// 实体列表转换成DataTable
+        /// </summary>
+        /// <typeparam name="T">实体</typeparam>
+        /// <param name="list"> 实体列表</param>
+        /// <returns></returns>
+        public static DataTable ListToDataTable<T>(IList<T> list) where T : class
+        {
+            if (list == null || list.Count <= 0)
+            {
+                return null;
+            }
+            DataTable dt = new DataTable(typeof(T).Name);
+            DataColumn column;
+            DataRow row;
+
+            PropertyInfo[] myPropertyInfo = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            int length = myPropertyInfo.Length;
+            bool createColumn = true;
+
+            foreach (T t in list)
+            {
+                if (t == null)
+                {
+                    continue;
+                }
+
+                row = dt.NewRow();
+                for (int i = 0; i < length; i++)
+                {
+                    PropertyInfo pi = myPropertyInfo[i];
+                    string name = pi.Name;
+                    if (createColumn)
+                    {
+                        column = new DataColumn(name, pi.PropertyType);
+                        dt.Columns.Add(column);
+                    }
+
+                    row[name] = pi.GetValue(t, null);
+                }
+
+                if (createColumn)
+                {
+                    createColumn = false;
+                }
+
+                dt.Rows.Add(row);
+            }
+            return dt;
+
+        }
+
+        /// <summary>
+        /// List转DataTable
+        /// </summary>
+        /// <param name="list">列表</param>
+        /// <returns></returns>
+        public static DataTable ToDataTable(System.Collections.IList list)
+        {
+            DataTable dataTable = new DataTable();
+            if (list.Count > 0)
+            {
+                System.Reflection.PropertyInfo[] properties = list[0].GetType().GetProperties();
+                System.Reflection.PropertyInfo[] array = properties;
+                for (int i = 0; i < array.Length; i++)
+                {
+                    System.Reflection.PropertyInfo propertyInfo = array[i];
+                    if (!DxPublic.IsNullableType(propertyInfo.PropertyType))
+                    {
+                        dataTable.Columns.Add(propertyInfo.Name, propertyInfo.PropertyType);
+                    }
+                }
+                for (int j = 0; j < list.Count; j++)
+                {
+                    System.Collections.ArrayList arrayList = new System.Collections.ArrayList();
+                    System.Reflection.PropertyInfo[] array2 = properties;
+                    for (int k = 0; k < array2.Length; k++)
+                    {
+                        System.Reflection.PropertyInfo propertyInfo2 = array2[k];
+                        if (!DxPublic.IsNullableType(propertyInfo2.PropertyType))
+                        {
+                            object value = propertyInfo2.GetValue(list[j], null);
+                            arrayList.Add(value);
+                        }
+                    }
+                    object[] values = arrayList.ToArray();
+                    dataTable.LoadDataRow(values, true);
+                }
+            }
+            return dataTable;
+        }
+
+        /// <summary>
+        /// List转DataTable
+        /// </summary>
+        /// <param name="list">列表</param>
+        /// <param name="ValidFields">转换的字段</param>
+        /// <returns></returns>
+        public static DataTable ToDataTable(System.Collections.IList list, System.Collections.Generic.List<string> ValidFields)
+        {
+            DataTable dataTable = new DataTable();
+            bool flag = ValidFields != null && 0 < ValidFields.Count;
+            if (list.Count > 0)
+            {
+                System.Reflection.PropertyInfo[] properties = list[0].GetType().GetProperties();
+                System.Reflection.PropertyInfo[] array = properties;
+                for (int i = 0; i < array.Length; i++)
+                {
+                    System.Reflection.PropertyInfo propertyInfo = array[i];
+                    if (!DxPublic.IsNullableType(propertyInfo.PropertyType) && (!flag || ValidFields.Contains(propertyInfo.Name)))
+                    {
+                        dataTable.Columns.Add(propertyInfo.Name, propertyInfo.PropertyType);
+                    }
+                }
+                for (int j = 0; j < list.Count; j++)
+                {
+                    System.Collections.ArrayList arrayList = new System.Collections.ArrayList();
+                    System.Reflection.PropertyInfo[] array2 = properties;
+                    for (int k = 0; k < array2.Length; k++)
+                    {
+                        System.Reflection.PropertyInfo propertyInfo2 = array2[k];
+                        if (!DxPublic.IsNullableType(propertyInfo2.PropertyType) && (!flag || ValidFields.Contains(propertyInfo2.Name)))
+                        {
+                            object value = propertyInfo2.GetValue(list[j], null);
+                            arrayList.Add(value);
+                        }
+                    }
+                    object[] values = arrayList.ToArray();
+                    dataTable.LoadDataRow(values, true);
+                }
+            }
+            return dataTable;
+        }
         #endregion
     }
 }

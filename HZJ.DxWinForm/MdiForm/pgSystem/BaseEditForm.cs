@@ -1,12 +1,11 @@
-﻿using DevExpress.XtraEditors;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace HZJ.DxWinComm.BaseWinFrom
 {
     /// <summary>
     /// 编辑基类窗体
     /// </summary>
-    public partial class BaseEditForm : XtraForm
+    public partial class BaseEditForm : Form
     {
         /// <summary>
         /// 是否新增

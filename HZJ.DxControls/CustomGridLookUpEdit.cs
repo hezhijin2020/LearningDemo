@@ -16,6 +16,9 @@ namespace HZJ.DxControls
     [ToolboxItem(true)]
     public class CustomGridLookUpEdit : GridLookUpEdit
     {
+        private RepositoryItemGridLookUpEdit fProperties;
+        private DevExpress.XtraGrid.Views.Grid.GridView fPropertiesView;
+
         /// <summary>
         /// 自动注册下拉框编辑器
         /// </summary>
@@ -152,6 +155,33 @@ namespace HZJ.DxControls
                    this.Properties.View.FocusedRowHandle = 0;
                 }
             }));
+        }
+
+        private void InitializeComponent()
+        {
+            this.fProperties = new DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit();
+            this.fPropertiesView = new DevExpress.XtraGrid.Views.Grid.GridView();
+            ((System.ComponentModel.ISupportInitialize)(this.fProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fPropertiesView)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // fProperties
+            // 
+            this.fProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.fProperties.Name = "fProperties";
+            this.fProperties.PopupView = this.fPropertiesView;
+            // 
+            // fPropertiesView
+            // 
+            this.fPropertiesView.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.fPropertiesView.Name = "fPropertiesView";
+            this.fPropertiesView.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.fPropertiesView.OptionsView.ShowGroupPanel = false;
+            ((System.ComponentModel.ISupportInitialize)(this.fProperties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fPropertiesView)).EndInit();
+            this.ResumeLayout(false);
+
         }
     }
 }

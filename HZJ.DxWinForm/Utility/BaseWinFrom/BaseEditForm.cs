@@ -1,7 +1,7 @@
 ﻿using DevExpress.XtraEditors;
 using System.Windows.Forms;
 
-namespace HZJ.DxWinComm.BaseWinFrom
+namespace HZJ.DxWinForm.Utility.BaseWinFrom
 {
     /// <summary>
     /// 编辑基类窗体

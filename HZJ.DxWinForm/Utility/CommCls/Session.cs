@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace HZJ.DxWinComm.CommCls
+namespace HZJ.DxWinForm.Utility.CommCls
 {
     public class Session
     {
@@ -31,7 +31,7 @@ namespace HZJ.DxWinComm.CommCls
         /// <summary>
         /// 问题ID
         /// </summary>
-        public Guid _DepartmentId { get; set; }
+        public Guid _DepartmentId { get; set; } = Guid.Empty;
 
         /// <summary>
         /// 部门
@@ -51,39 +51,22 @@ namespace HZJ.DxWinComm.CommCls
         /// <summary>
         /// 系统ID
         /// </summary>
-        public Guid _SystemId { get; set; } = Guid.Empty;
+        public Guid _SystemId { get; set; } = AppSetingHelper.GetSystemId();
 
         /// <summary>
         /// 系统名称
         /// </summary>
-        public string _SystemName { get; set; } = string.Empty;
+        public string _SystemName { get; set; } = AppSetingHelper.GetSystemName();
 
         /// <summary>
         /// 登录电脑IP
         /// </summary>
-        public string _IPAddress { get; set; } = string.Empty;
+        public string _IPAddress { get; set; } = DxPublic.GetLocalIP();
 
         /// <summary>
         /// 登录电脑的Mac地址
         /// </summary>
-        public string _MACAddress { get; set; } = string.Empty;
-
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        public Session(
-            string IPAddress,
-            string MACAddress,
-            Guid SystemId,
-            string SystemName)
-        {
-            _SystemId = SystemId;
-            _SystemName = SystemName;
-            _IPAddress = IPAddress;
-            _MACAddress = MACAddress;
-        }
-
-       
+        public string _MACAddress { get; set; } = DxPublic.GetLocalMac();
 
         /// <summary>
         /// 初始化方法
